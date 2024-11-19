@@ -1,5 +1,7 @@
 *.out
 *temp
+*tmp
+*temp*
 *copy
 *.swo
 *.o

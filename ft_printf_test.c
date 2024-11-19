@@ -6,13 +6,14 @@
 /*   By: jvarila <jvarila@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 13:28:28 by jvarila           #+#    #+#             */
-/*   Updated: 2024/11/18 19:46:37 by jvarila          ###   ########.fr       */
+/*   Updated: 2024/11/19 14:56:29 by jvarila          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 #include <stdio.h>
-#define OUTPUT_FORMAT "\n%20s%20s\n%20s%20s\n%20s%20d\n%20s%20d\n"
+
+#define OUTPUT_FORMAT "\n%20s   %s\n%20s   %s\n%20s   %d\n%20s   %d\n"
 
 int	main(int argc, char **argv)
 {
@@ -32,6 +33,8 @@ int	main(int argc, char **argv)
 	int				ft_rval;
 	char			*itoa;
 
+
+
 	c = '\0';
 	s = NULL;
 	p = "test";
@@ -46,7 +49,7 @@ int	main(int argc, char **argv)
 	printf("\n");
 	ft_rval = ft_printf(&c);
 	printf("\n");
-	printf(OUTPUT_FORMAT, "format string:", "none", "input:", "\\0", 
+	printf(OUTPUT_FORMAT, "format string:", "none", "input:", "\"\\0\"", 
 		"rval:", rval, "ft_rval:", ft_rval);
 	printf("\n");
 
@@ -122,25 +125,50 @@ int	main(int argc, char **argv)
 	printf("\n");
 	free(itoa);
 
+	printf("\n");
 	s = "test_person";
-	format_str = "Hello %s, here is a char %c, here is a ";
-	itoa = ft_itoa(X);
-	rval = printf(format_str, X);
+	format_str =	"Hello %s, here is a char %c, here is a digit %d, "
+					"here is another digit %i, here is a pointer %p, \n"
+					"here comes an unsigned integer %u, next comes a "
+					"lower case hex %x and finally a capital hex %X \n"
+					"with a percentage sign %% on top.";
+	rval = printf(format_str, s, c, d, i, p, u, x, X);
+	printf("\n\n");
+	ft_rval = ft_printf(format_str, s, c, d, i, p, u, x, X);
 	printf("\n");
-	ft_rval = ft_printf(format_str, X);
-	printf("\n");
-	printf(OUTPUT_FORMAT, "format string:", format_str, "input:", itoa, 
+	printf(OUTPUT_FORMAT, "format string:", format_str, "input:", "s c d i p u x X", 
 		"rval:", rval, "ft_rval:", ft_rval);
 	printf("\n");
-	free(itoa);
+
+	printf("\n");
+	s = "";
+	format_str =	"Hello %s, here is a char %c, here is a digit %d, "
+					"here is another digit %i, here is a pointer %p, \n"
+					"here comes an unsigned integer %u, next comes a "
+					"lower case hex %x and finally a capital hex %X \n"
+					"with a percentage sign %% on top.";
+	rval = printf(format_str, s, '\t', 42, 420, &s, ULONG_MAX, 0x01abdf, 0x01abdf);
+	printf("\n\n");
+	ft_rval = ft_printf(format_str, s, '\t', 42, 420, &s, ULONG_MAX, 0x01abdf, 0x01abdf);
+	printf("\n");
+	printf(OUTPUT_FORMAT, "format string:", format_str, "input:", "\"\" \\t 42 420 &s ULONG_MAX 0x01abdf 0x01abdf", 
+		"rval:", rval, "ft_rval:", ft_rval);
+	printf("\n");
+
+	printf("\n");
+	s = "test_person";
+	format_str =	"Hello %s, here is a char %c, here is a digit %d, "
+					"here is another digit %i, here is a pointer %p, \n"
+					"here comes an unsigned integer %u, next comes a "
+					"lower case hex %x and finally a capital hex %X \n"
+					"with a percentage sign %% on top.";
+	rval = printf(format_str, NULL, 0, 0, 0, NULL, 0, 0, 0);
+	printf("\n\n");
+	ft_rval = ft_printf(format_str, NULL, 0, 0, 0, NULL, 0, 0, 0);
+	printf("\n");
+	printf(OUTPUT_FORMAT, "format string:", format_str, "input:", "NULL, 0, 0, 0, NULL, 0, 0, 0", 
+		"rval:", rval, "ft_rval:", ft_rval);
+	printf("\n");
 
 	return(0);
-
-	// printf("%d%d%d", 1, 2, 3);
-	// printf("\n");
-	// printf("%d%d", 1, 2, 3);
-	// printf("\n");
-	// printf("%d%d%d%d", 1, 2, 3);
-
-	return (0);
 }

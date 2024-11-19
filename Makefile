@@ -19,10 +19,13 @@ LIBFT = libft.a
 LIBDIR = ../../Projects/
 SRC = $(wildcard $(SRCDIR)*.c)
 
-all: ft_printf_test
+all: ft_printf_test ft_printf_unit_test
 
 ft_printf_test: ft_printf_test.c $(SRC) libft.a libft.h libftprintf.h
-	$(CC) -w $(SRC) ft_printf_test.c -L. -l:libft.a -o ft_printf_test -g
+	$(CC) -w $(SRC) $< -L. -l:libft.a -o $@ -g
+
+ft_printf_unit_test: ft_printf_unit_test.c $(SRC) libft.a libft.h libftprintf.h
+	$(CC) -w $(SRC) $< -L. -l:libft.a -o $@ -g
 
 libft.a: ~/Projects/libft/libft.a
 	cp $< ./
