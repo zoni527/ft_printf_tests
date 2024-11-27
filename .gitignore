@@ -5,3 +5,4 @@
 *copy
 *.swo
 *.o
+*_output
