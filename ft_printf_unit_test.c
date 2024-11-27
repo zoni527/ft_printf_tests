@@ -39,6 +39,10 @@ long long arri[]
 	
 int	arrc[]
 	=	{0,	
+		'a',	'b',	'c',	'x',	'y',	'z',	'0',	'9',
+		'A',	'B',	'C',	'X',	'Y',	'Z',	'!',	'~',
+		' ',	'\t',	'\n',	'%',	'#',	'@',	'$',	'*',
+		'\\',	'\'',	'\"',	'^',	',',	'.',	';',	':',
 		+126,	+127,	+128,	+129,	+254,	+255,	+256,	+300,
 		-126,	-127,	-128,	-129,	-254,	-255,	-256,	-300,
 		42};
@@ -48,11 +52,11 @@ char	*arrs[]
 		"abcdefghijklmnopqrstuvxyz",
 		"ABCDEFGHIJKLMNOPQRSTUVXYZ",
 		"0123456789",
-		"~!@#$%^&*()+",
+		"~!@#$%^&*()+%",
 		"a quick brown fox jumps over the lazy dog",
 		"A QUICK BROWN FOX JUMPS OVER THE LAZY DOG"};
 
-	for (long long i = 0; i < sizeof(arri)/sizeof(arri[0]); i++)
+	for (int i = 0; i < sizeof(arri)/sizeof(arri[0]); i++)
 	{
 		rval = f("%i\n", arri[i]);
 		f("%d\n", rval);
@@ -75,6 +79,8 @@ char	*arrs[]
 	for (int i = 0; i < sizeof(arrs)/sizeof(arrs[0]); i++)
 	{
 		rval = f("%s\n", arrs[i]);
+		f("%d\n", rval);
+		rval = f(arrs[i]);
 		f("%d\n", rval);
 	}
 

@@ -39,7 +39,7 @@ libftprintf.h: ~/Projects/ft_printf/include/libftprintf.h
 clean:
 
 fclean: clean
-	rm -f ./*_test
+	rm -f ./*_test *temp*
 
 re: fclean all
 
