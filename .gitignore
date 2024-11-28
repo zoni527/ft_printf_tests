@@ -6,3 +6,4 @@
 *.swo
 *.o
 *_output
+*_test
