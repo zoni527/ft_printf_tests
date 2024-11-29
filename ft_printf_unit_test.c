@@ -86,7 +86,7 @@ int	main(int argc, char **argv)
 		f("%d\n", rval);
 		f("---------------- result without format string\n");
 		rval = f(arrs[i]);
-		f("%d\n", rval);
+		f("\n%d\n", rval);
 	}
 
 	return (0);

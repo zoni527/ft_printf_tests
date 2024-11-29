@@ -12,31 +12,25 @@
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-
+LIB = libftprintf.a
 PROJECTDIR = ~/Repos/ft_printf/
-SRCDIR = $(PROJECTDIR)src/
 LIBFTDIR = ~/Repos/ft_printf/libft/
-SRC = $(wildcard $(SRCDIR)*.c)
+SRC = $(wildcard ./*.c)
+TSTS = $(SRC:.c=)
 
-all: ft_printf_test ft_printf_unit_test ft_printf_test_negative_numbers
+all: $(TSTS) $(LIB)
 
-ft_printf_test: ft_printf_test.c $(SRC) libft.a libft.h libftprintf.h
-	$(CC) -w $(SRC) $< -L. -l:libft.a -o $@ -g
+$(TSTS): %:%.c $(LIB)
+	$(CC) $(CFLAGS) -w $@.c -L. -l:$(LIB) -o $@
 
-ft_printf_unit_test: ft_printf_unit_test.c $(SRC) libft.a libft.h libftprintf.h
-	$(CC) -w $(SRC) $< -L. -l:libft.a -o $@ -g
-
-ft_printf_test_negative_numbers: ft_printf_test_negative_numbers.c $(SRC) libft.a libft.h libftprintf.h
-	$(CC) -w $(SRC) $< -L. -l:libft.a -o $@ -g
-
-libft.a: $(LIBFTDIR)libft.a
+$(LIB): $(PROJECTDIR)$(LIB)
 	cp $< ./
 
-libft.h: $(LIBFTDIR)libft.h
-	cp $< ./
-
-libftprintf.h: $(PROJECTDIR)/include/libftprintf.h
-	cp $< ./
+#libft.h: $(LIBFTDIR)libft.h
+#	cp $< ./
+#
+#libftprintf.h: $(PROJECTDIR)/include/libftprintf.h
+#	cp $< ./
 
 clean:
 
