@@ -15,15 +15,18 @@ CFLAGS = -Wall -Wextra -Werror
 
 PROJECTDIR = ~/Repos/ft_printf/
 SRCDIR = $(PROJECTDIR)src/
-LIBFTDIR = ~/Repos/libft/
+LIBFTDIR = ~/Repos/ft_printf/libft/
 SRC = $(wildcard $(SRCDIR)*.c)
 
-all: ft_printf_test ft_printf_unit_test
+all: ft_printf_test ft_printf_unit_test ft_printf_test_negative_numbers
 
 ft_printf_test: ft_printf_test.c $(SRC) libft.a libft.h libftprintf.h
 	$(CC) -w $(SRC) $< -L. -l:libft.a -o $@ -g
 
 ft_printf_unit_test: ft_printf_unit_test.c $(SRC) libft.a libft.h libftprintf.h
+	$(CC) -w $(SRC) $< -L. -l:libft.a -o $@ -g
+
+ft_printf_test_negative_numbers: ft_printf_test_negative_numbers.c $(SRC) libft.a libft.h libftprintf.h
 	$(CC) -w $(SRC) $< -L. -l:libft.a -o $@ -g
 
 libft.a: $(LIBFTDIR)libft.a
