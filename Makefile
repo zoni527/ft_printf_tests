@@ -12,30 +12,31 @@
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-LIB = libftprintf.a
-PROJECTDIR = ~/Repos/ft_printf/
-LIBFTDIR = ~/Repos/ft_printf/libft/
+FT_PRINTF_DIR = ..
+LIB_H_DIR = $(FT_PRINTF_DIR)/include
+LIBFT_DIR = $(FT_PRINTF_DIR)/libft
 SRC = $(wildcard ./*.c)
-TSTS = $(SRC:.c=)
+TESTS = $(SRC:.c=)
 
-all: $(TSTS) $(LIB)
+all: $(TESTS)
 
-$(TSTS): %:%.c $(LIB)
-	$(CC) $(CFLAGS) -w $@.c -L. -l:$(LIB) -o $@
+$(TESTS): %: %.c libftprintf.a libftprintf.h libft.h
+	$(CC) $(CFLAGS) -w $< libftprintf.a -o $@
 
-$(LIB): $(PROJECTDIR)$(LIB)
+libftprintf.a: $(FT_PRINTF_DIR)/libftprintf.a
 	cp $< ./
 
-#libft.h: $(LIBFTDIR)libft.h
-#	cp $< ./
-#
-#libftprintf.h: $(PROJECTDIR)/include/libftprintf.h
-#	cp $< ./
+libft.h: $(LIBFT_DIR)/libft.h
+	cp $< ./
+
+libftprintf.h: $(LIB_H_DIR)/libftprintf.h
+	cp $< ./
 
 clean:
+	rm -f libftprintf.a libftprintf.h libft.h *temp* *_output
 
 fclean: clean
-	rm -f ./*_test *temp* *_output
+	rm -f ./*_test
 
 re: fclean all
 

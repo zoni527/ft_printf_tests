@@ -7,3 +7,6 @@
 *.o
 *_output
 *_test
+libfprintf.a
+libfprintf.h
+libft.h
