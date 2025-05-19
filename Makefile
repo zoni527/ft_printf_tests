@@ -10,34 +10,37 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
-FT_PRINTF_DIR = ..
-LIB_H_DIR = $(FT_PRINTF_DIR)/include
-LIBFT_DIR = $(FT_PRINTF_DIR)/libft
-SRC = $(wildcard ./*.c)
-TESTS = $(SRC:.c=)
+CC			:= cc
+CFLAGS		:= -Wall -Wextra -Werror
+# ---------------------------------------------------------------------------- #
+PROJECT_DIR	:= /home/jvarila/Repos/ft_printf
+HEADER_DIR	:= $(PROJECT_DIR)/include
+LIBFT_DIR	:= $(PROJECT_DIR)/libft
+# ---------------------------------------------------------------------------- #
+HEADER		:= $(HEADER_DIR)/libftprintf.h
+LIB			:= $(PROJECT_DIR)/libftprintf.a
+LIBFT_H		:= $(LIBFT_DIR)/libft.h
+# ---------------------------------------------------------------------------- #
+SRC			:= $(wildcard ./*.c)
+TESTS		:= $(SRC:.c=)
+# ---------------------------------------------------------------------------- #
 
 all: $(TESTS)
 
-$(TESTS): %: %.c libftprintf.a libftprintf.h libft.h
-	$(CC) $(CFLAGS) -w $< libftprintf.a -o $@
+$(TESTS): %: %.c $(LIB) $(HEADER) $(LIBFT_H)
+	$(CC) $(CFLAGS) -w -I $(HEADER_DIR) -I $(LIBFT_DIR) $< $(LIB) -o $@
 
-libftprintf.a: $(FT_PRINTF_DIR)/libftprintf.a
-	cp $< ./
-
-libft.h: $(LIBFT_DIR)/libft.h
-	cp $< ./
-
-libftprintf.h: $(LIB_H_DIR)/libftprintf.h
-	cp $< ./
+$(LIB):
+	make -C $(PROJECT_DIR)
 
 clean:
-	rm -f libftprintf.a libftprintf.h libft.h *temp* *_output
+	rm -f *temp* *_output
 
 fclean: clean
 	rm -f ./*_test
 
 re: fclean all
 
+# ---------------------------------------------------------------------------- #
 .PHONY: clean fclean re all
+# ---------------------------------------------------------------------------- #
